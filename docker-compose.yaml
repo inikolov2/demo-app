@@ -6,18 +6,31 @@ services:
         ports:
             - 8080:80
         volumes:
-            - "/home/vagrant/demo-app/web:/var/www/html:ro"
+            - "${PROJECT_ROOT}:/var/www/html:ro"
+
         networks:
+
             - app-network
+
         depends_on:
+
             - db
+
     db:
+
         build:
+
             context: .
+
             dockerfile: Dockerfile.db
+
         networks:
             - app-network
+
         environment:
-            MYSQL_ROOT_PASSWORD: "12345"
+
+            MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+
 networks:
+
     app-network:
